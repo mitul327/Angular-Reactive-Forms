@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+
+import { CustomValidators } from '../shared/custom.validators';
 
 @Component({
   selector: 'app-create-employee',
@@ -18,7 +20,7 @@ export class CreateEmployeeComponent implements OnInit {
     },
     email: {
       required: 'Email is required.',
-      emailDomain: 'Email domian should be rediffmail.com',
+      emailDomain: 'Email domian should be dell.com',
     },
     phone: {
       required: 'Phone is required.',
@@ -54,7 +56,10 @@ export class CreateEmployeeComponent implements OnInit {
         ],
       ],
       contactPreference: ['email'],
-      email: ['', Validators.required],
+      email: [
+        '',
+        [Validators.required, CustomValidators.emailDomain('dell.com')],
+      ],
       phone: [''],
       skills: this.fb.group({
         skillName: ['', Validators.required],
