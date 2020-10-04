@@ -13,11 +13,15 @@ export class CreateEmployeeComponent implements OnInit {
   public validationMessages = {
     fullName: {
       required: 'Full Name is required.',
-      minlength: 'Full Name must be greater than 2 characters.',
+      minlength: 'Full Name must be greater than 2 characters',
       maxlength: 'Full Name must be less than 10 characters.',
     },
     email: {
       required: 'Email is required.',
+      emailDomain: 'Email domian should be rediffmail.com',
+    },
+    phone: {
+      required: 'Phone is required.',
     },
     skillName: {
       required: 'Skill Name is required.',
@@ -29,10 +33,10 @@ export class CreateEmployeeComponent implements OnInit {
       required: 'Proficiency is required.',
     },
   };
-
   public formErrors = {
     fullName: '',
     email: '',
+    phone: '',
     skillName: '',
     experienceInYears: '',
     proficiency: '',
@@ -49,7 +53,9 @@ export class CreateEmployeeComponent implements OnInit {
           Validators.maxLength(10),
         ],
       ],
+      contactPreference: ['email'],
       email: ['', Validators.required],
+      phone: [''],
       skills: this.fb.group({
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
@@ -57,9 +63,25 @@ export class CreateEmployeeComponent implements OnInit {
       }),
     });
 
+    this.employeeForm
+      .get('contactPreference')
+      .valueChanges.subscribe((data: string) => {
+        this.onContactPreferenceChange(data);
+      });
+
     this.employeeForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.employeeForm);
     });
+  }
+
+  public onContactPreferenceChange(selectedValue: string): void {
+    const phoneFormControl = this.employeeForm.get('phone');
+    if (selectedValue === 'phone') {
+      phoneFormControl.setValidators(Validators.required);
+    } else {
+      phoneFormControl.clearValidators();
+    }
+    phoneFormControl.updateValueAndValidity();
   }
 
   public logValidationErrors(group: FormGroup = this.employeeForm): void {
@@ -87,6 +109,5 @@ export class CreateEmployeeComponent implements OnInit {
 
   public onLoadDataClick(): void {
     this.logValidationErrors(this.employeeForm);
-    console.log(this.formErrors);
   }
 }
