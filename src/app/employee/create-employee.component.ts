@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-create-employee',
@@ -8,16 +9,16 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class CreateEmployeeComponent implements OnInit {
   public employeeForm: FormGroup;
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
   public ngOnInit(): void {
-    this.employeeForm = new FormGroup({
-      fullName: new FormControl(),
-      email: new FormControl(),
-      skills: new FormGroup({
-        skillName: new FormControl(),
-        experienceInYears: new FormControl(),
-        proficiency: new FormControl(),
+    this.employeeForm = this.fb.group({
+      fullName: [''],
+      email: [''],
+      skills: this.fb.group({
+        skillName: [''],
+        experienceInYears: [''],
+        proficiency: ['beginner'],
       }),
     });
   }
@@ -27,14 +28,14 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   public onLoadDataClick(): void {
-      this.employeeForm.patchValue({
-        fullName: 'Mitul Panchal',
-        email: 'mitul327@rediffmail.com',
+    this.employeeForm.patchValue({
+      fullName: 'Mitul Panchal',
+      email: 'mitul327@rediffmail.com',
       /*   skills: {
           skillName: 'Angular',
           experienceInYears: 8,
           proficiency: 'intermediate',
         }, */
-      });
+    });
   }
 }
