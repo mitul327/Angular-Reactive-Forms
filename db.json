@@ -1,0 +1,47 @@
+{
+    "employees": [
+        {
+            "id": 1,
+            "fullName": "Mitul",
+            "contactPreference": "email",
+            "email": "mitul@email.com",
+            "phone": "5641238971",
+            "skills": [
+                {
+                    "skillName": "Angular",
+                    "experienceInYears": 3,
+                    "proficiency": "intermediate"
+                },
+                {
+                    "skillName": "Java",
+                    "experienceInYears": 0,
+                    "proficiency": "beginner"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "fullName": "Priyanka",
+            "contactPreference": "phone",
+            "email": "priyanka@email.com",
+            "phone": "3242138971",
+            "skills": [
+                {
+                    "skillName": "JavaScript",
+                    "experienceInYears": 2,
+                    "proficiency": "beginner"
+                },
+                {
+                    "skillName": "HTML",
+                    "experienceInYears": 2,
+                    "proficiency": "intermediate"
+                },
+                {
+                    "skillName": "PHP",
+                    "experienceInYears": 3,
+                    "proficiency": "advanced"
+                }
+            ]
+        }
+    ]
+}
