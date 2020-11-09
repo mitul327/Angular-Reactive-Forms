@@ -1,47 +1,66 @@
 {
-    "employees": [
+  "employees": [
+    {
+      "id": 1,
+      "fullName": "Ankita",
+      "contactPreference": "email",
+      "email": "ankita@dell.com",
+      "phone": "123456789",
+      "skills": [
         {
-            "id": 1,
-            "fullName": "Mitul",
-            "contactPreference": "email",
-            "email": "mitul@email.com",
-            "phone": "5641238971",
-            "skills": [
-                {
-                    "skillName": "Angular",
-                    "experienceInYears": 3,
-                    "proficiency": "intermediate"
-                },
-                {
-                    "skillName": "Java",
-                    "experienceInYears": 0,
-                    "proficiency": "beginner"
-                }
-            ]
+          "skillName": ".NET",
+          "experienceInYears": 3,
+          "proficiency": "intermediate"
         },
         {
-            "id": 2,
-            "fullName": "Priyanka",
-            "contactPreference": "phone",
-            "email": "priyanka@email.com",
-            "phone": "3242138971",
-            "skills": [
-                {
-                    "skillName": "JavaScript",
-                    "experienceInYears": 2,
-                    "proficiency": "beginner"
-                },
-                {
-                    "skillName": "HTML",
-                    "experienceInYears": 2,
-                    "proficiency": "intermediate"
-                },
-                {
-                    "skillName": "PHP",
-                    "experienceInYears": 3,
-                    "proficiency": "advanced"
-                }
-            ]
+          "skillName": "Golang",
+          "experienceInYears": "4",
+          "proficiency": "beginner"
         }
-    ]
+      ]
+    },
+    {
+      "id": 2,
+      "fullName": "Priyanka",
+      "contactPreference": "phone",
+      "email": "priyanka@email.com",
+      "phone": "3242138971",
+      "skills": [
+        {
+          "skillName": "JavaScript",
+          "experienceInYears": 2,
+          "proficiency": "beginner"
+        },
+        {
+          "skillName": "HTML",
+          "experienceInYears": 2,
+          "proficiency": "intermediate"
+        },
+        {
+          "skillName": "PHP",
+          "experienceInYears": 3,
+          "proficiency": "advanced"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "fullName": "Mitul",
+      "contactPreference": "email",
+      "email": "mitul@dell.com",
+      "phone": "55555555",
+      "skills": [
+        {
+          "skillName": "Angular",
+          "experienceInYears": "3",
+          "proficiency": "intermediate"
+        },
+        {
+          "skillName": "Javascript",
+          "experienceInYears": "7",
+          "proficiency": "advanced"
+        }
+      ]
+    }
+  ]
 }

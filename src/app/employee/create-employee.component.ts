@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from './employee.service';
 import { IEmployee } from './IEmployee';
 import { ISkill } from './ISkill';
@@ -16,6 +16,8 @@ import { CustomValidators } from '../shared/custom.validators';
 })
 export class CreateEmployeeComponent implements OnInit {
   public employeeForm: FormGroup;
+  public employee: IEmployee;
+  public pageTitle: string;
   validationMessages = {
     fullName: {
       required: 'Full Name is required.',
@@ -50,7 +52,8 @@ export class CreateEmployeeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private router: Router
   ) {}
 
   public ngOnInit(): void {
@@ -91,14 +94,30 @@ export class CreateEmployeeComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const empId = +params.get('id');
       if (empId) {
+        this.pageTitle = 'Edit Employee';
         this.getEmployee(empId);
+      } else {
+        this.pageTitle = 'Create Employee';
+        this.employee = {
+          id: null,
+          fullName: '',
+          contactPreference: '',
+          email: '',
+          phone: null,
+          skills: [],
+        };
       }
     });
   }
 
   public getEmployee(id: number): void {
     this.employeeService.getEmployee(id).subscribe(
-      (employee: IEmployee) => this.editEmployee(employee),
+      (employee: IEmployee) => {
+        // Store the employee object returned by the
+        // REST API in the employee property
+        this.employee = employee;
+        this.editEmployee(employee);
+      },
       (err: any) => console.log(err)
     );
   }
@@ -193,6 +212,29 @@ export class CreateEmployeeComponent implements OnInit {
 
   public onLoadDataClick(): void {
     this.logValidationErrors(this.employeeForm);
+  }
+
+  public onSubmit(): void {
+    this.mapFormValuesToEmployeeModel();
+    if (this.employee.id) {
+      this.employeeService.updateEmployee(this.employee).subscribe(
+        () => this.router.navigate(['list']),
+        (err: Error) => console.log(err)
+      );
+    } else {
+      this.employeeService.addEmployee(this.employee).subscribe(
+        () => this.router.navigate(['list']),
+        (err: Error) => console.log(err)
+      );
+    }
+  }
+
+  public mapFormValuesToEmployeeModel(): void {
+    this.employee.fullName = this.employeeForm.value.fullName;
+    this.employee.contactPreference = this.employeeForm.value.contactPreference;
+    this.employee.email = this.employeeForm.value.emailGroup.email;
+    this.employee.phone = this.employeeForm.value.phone;
+    this.employee.skills = this.employeeForm.value.skills;
   }
 
   public matchEmails(group: AbstractControl): { [key: string]: any } | null {
